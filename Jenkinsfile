@@ -33,7 +33,7 @@ pipeline {
             sh "go test -v | go2xunit -output test_unit_output.xml"
             sh "go test -coverprofile=coverage.out"
             sh "go tool cover -func=coverage.out"
-            sh "gosec -nosec=true -fmt=json -out=test_security_output.json ."
+            sh "gosec -exclude=G101,G102,G103,G104,G105,G106,G107,G201,G202,G203,G204,G301,G302,G303,G304,G305,G401,G402,G403,G404,G501,G502,G503,G504,G505 -nosec=true -fmt=json -out=test_security_output.json ."
             sh "export VERSION=$PREVIEW_VERSION && skaffold build -f skaffold.yaml"
             sh "jx step post build --image $DOCKER_REGISTRY/$ORG/$APP_NAME:$PREVIEW_VERSION"
           }
@@ -72,7 +72,7 @@ pipeline {
             sh "go test -v | go2xunit -output test_unit_output.xml"
             sh "go test -coverprofile=coverage.out"
             sh "go tool cover -func=coverage.out"
-            sh "gosec -nosec=true -fmt=json -out=test_security_output.json ."
+            sh "gosec -exclude=G101,G102,G103,G104,G105,G106,G107,G201,G202,G203,G204,G301,G302,G303,G304,G305,G401,G402,G403,G404,G501,G502,G503,G504,G505 -nosec=true -fmt=json -out=test_security_output.json ."
             sh "export VERSION=`cat VERSION` && skaffold build -f skaffold.yaml"
             sh "jx step post build --image $DOCKER_REGISTRY/$ORG/$APP_NAME:\$(cat VERSION)"
           }
