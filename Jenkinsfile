@@ -68,7 +68,7 @@ pipeline {
             sh "echo \$(jx-release-version) > VERSION"
             sh "jx step tag --version \$(cat VERSION)"
             sh "make build"
-            sh "gotests -all"
+            sh "gotests -all /home/jenkins/go/src/github.com/srikanthcone/srikanth-buildpack-test"
             sh "go test -v | go2xunit > test_unit_output.xml"
             sh "go test -coverprofile=coverage.out"
             sh "go tool cover -func=coverage.out"
