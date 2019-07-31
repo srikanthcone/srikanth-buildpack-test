@@ -33,7 +33,7 @@ pipeline {
             sh "go test -v | go2xunit -output test_unit_output.xml"
             sh "go test -coverprofile=coverage.out"
             sh "go tool cover -func=coverage.out"
-            sh "gosec -fmt=json -out test_security_output.json"
+            sh "gosec -nosec=true -tests -vendor -fmt=json -out=test_security_output.json ./..."
             sh "export VERSION=$PREVIEW_VERSION && skaffold build -f skaffold.yaml"
             sh "jx step post build --image $DOCKER_REGISTRY/$ORG/$APP_NAME:$PREVIEW_VERSION"
           }
@@ -72,7 +72,7 @@ pipeline {
             sh "go test -v | go2xunit -output test_unit_output.xml"
             sh "go test -coverprofile=coverage.out"
             sh "go tool cover -func=coverage.out"
-            sh "gosec -fmt=json -out test_security_output.json"
+            sh "gosec -nosec=true -tests -vendor -fmt=json -out=test_security_output.json ./..."
             sh "export VERSION=`cat VERSION` && skaffold build -f skaffold.yaml"
             sh "jx step post build --image $DOCKER_REGISTRY/$ORG/$APP_NAME:\$(cat VERSION)"
           }
